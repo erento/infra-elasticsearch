@@ -28,3 +28,5 @@ cloud:
 discovery:
     type: kubernetes
     zen.ping.multicast.enabled: false
+
+script.inline: on
