@@ -19,3 +19,5 @@ cp settings.yml tmp/hunspell/en_GB/
 cp settings.yml tmp/hunspell/de_DE/
 
 docker build -t gcr.io/erento-docker/search-els:latest .
+docker tag gcr.io/erento-docker/search-els gcr.io/erento-docker/search-els:2.3.3
+docker push gcr.io/erento-docker/search-els:2.3.3

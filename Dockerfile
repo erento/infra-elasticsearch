@@ -1,4 +1,4 @@
-FROM quay.io/pires/docker-elasticsearch:2.3.1
+FROM quay.io/pires/docker-elasticsearch:2.3.3
 # tutum.co/erento/search-els
 
 MAINTAINER developers@erento.com
@@ -8,7 +8,7 @@ MAINTAINER developers@erento.com
 ADD do_not_use.yml /elasticsearch/config/elasticsearch.yml
 
 # Install Elasticsearch plug-ins
-RUN /elasticsearch/bin/plugin install io.fabric8/elasticsearch-cloud-kubernetes/2.3.1 --verbose
+RUN /elasticsearch/bin/plugin install io.fabric8/elasticsearch-cloud-kubernetes/2.3.3 --verbose
 
 # erento custom:start
 COPY tmp/hunspell/ /elasticsearch/config/
