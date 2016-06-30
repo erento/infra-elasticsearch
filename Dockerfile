@@ -11,7 +11,7 @@ ADD do_not_use.yml /elasticsearch/config/elasticsearch.yml
 RUN /elasticsearch/bin/plugin install io.fabric8/elasticsearch-cloud-kubernetes/2.3.3 --verbose
 
 # erento custom:start
-COPY tmp/hunspell/ /elasticsearch/config/
+COPY tmp/hunspell/ /elasticsearch/config/hunspell/
 RUN /elasticsearch/bin/plugin install analysis-icu
 # erento custom:end
 
