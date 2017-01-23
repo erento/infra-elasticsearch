@@ -1,0 +1,109 @@
+{
+  "kind": "ReplicationController",
+  "spec": {
+    "replicas": 1,
+    "template": {
+      "spec": {
+        "serviceAccount": "default",
+        "containers": [
+          {
+            "securityContext": {
+              "capabilities": {
+                "add": [
+                  "IPC_LOCK"
+                ]
+              }
+            },
+            "name": "search-client",
+            "env": [
+                {
+                  "name": "KUBERNETES_DISABLE_HOSTNAME_CHECK",
+                  "value": "true"
+                },
+                {
+                  "name": "KUBERNETES_CA_CERTIFICATE_FILE",
+                  "value": "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
+                },
+              {
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "metadata.namespace"
+                  }
+                },
+                "name": "NAMESPACE"
+              },
+              {
+                "name": "CLUSTER_NAME",
+                "value": "search"
+              },
+              {
+                "name": "NODE_MASTER",
+                "value": "false"
+              },
+              {
+                "name": "NODE_DATA",
+                "value": "false"
+              },
+              {
+                "name": "HTTP_ENABLE",
+                "value": "true"
+              },
+              {
+                "name": "KUBERNETES_TRUST_CERTIFICATES",
+                "value": "true"
+              }
+            ],
+            "image": "tutum.co/erento/search-els:v3",
+            "volumeMounts": [
+              {
+                "mountPath": "/data",
+                "name": "storage"
+              }
+            ],
+            "ports": [
+              {
+                "protocol": "TCP",
+                "containerPort": 9200,
+                "name": "http"
+              },
+              {
+                "protocol": "TCP",
+                "containerPort": 9300,
+                "name": "transport"
+              }
+            ]
+          }
+        ],
+        "imagePullSecrets": [
+          {
+            "name": "docker-registry-tutum"
+          }
+        ],
+        "volumes": [
+          {
+            "name": "storage",
+            "emptyDir": {}
+          }
+        ]
+      },
+      "metadata": {
+        "labels": {
+          "app": "search",
+          "role": "client"
+        }
+      }
+    },
+    "selector": {
+      "app": "search",
+      "role": "client"
+    }
+  },
+  "apiVersion": "v1",
+  "metadata": {
+    "labels": {
+      "app": "search",
+      "role": "client"
+    },
+    "name": "search-client"
+  }
+}
