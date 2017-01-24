@@ -88,14 +88,7 @@
                 "mountPath": "/etc/ssl/certs",
                 "name": "ssl"
               }
-            ],
-            "securityContext": {
-              "capabilities": {
-                "add": [
-                  "IPC_LOCK"
-                ]
-              }
-            }
+            ]
           }
         ],
         "imagePullSecrets": [
