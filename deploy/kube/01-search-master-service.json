@@ -9,16 +9,16 @@
     }
   },
   "spec": {
-    "selector": {
-      "app": "search",
-      "role": "master"
-    },
     "ports": [
       {
         "name": "transport",
         "port": 9300,
         "protocol": "TCP"
       }
-    ]
+    ],
+    "selector": {
+      "app": "search",
+      "role": "master"
+    }
   }
 }
