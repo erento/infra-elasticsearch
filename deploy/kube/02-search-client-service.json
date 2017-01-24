@@ -9,17 +9,16 @@
     }
   },
   "spec": {
-    "type": "LoadBalancer",
-    "selector": {
-      "app": "search",
-      "role": "client"
-    },
     "ports": [
       {
         "name": "http",
         "port": 9200,
         "protocol": "TCP"
       }
-    ]
+    ],
+    "selector": {
+      "app": "search",
+      "role": "client"
+    }
   }
 }
