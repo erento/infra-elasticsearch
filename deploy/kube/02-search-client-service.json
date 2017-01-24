@@ -9,13 +9,10 @@
     }
   },
   "spec": {
-    "type": "NodePort",
-    "clusterIP": "10.168.208.38",
     "ports": [
       {
         "name": "http",
         "port": 9200,
-        "nodePort": 32299,
         "protocol": "TCP"
       }
     ],
