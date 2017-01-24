@@ -14,14 +14,15 @@ db-search-b1-prod   app=search,role=db,zone=b   10Gi       RWO           Availab
 db-search-c1-prod   app=search,role=db,zone=c   10Gi       RWO           Available                       4d
 ```
 
-on nodes you will need label zone
-on volumes zone app and role
-in 05-search-db.json you will find that RC have app and role that corresponds to volume app and role
-from this k8aws script will generate runtime RC list file that will contain RC templates for app, role and zone
+* on nodes you will need label zone
+* on volumes zone app and role
+* in 05-search-db.json you will find that RC have app and role that corresponds to volume app and role from the k8aws script will generate runtime RC list file that will contain RC templates for app, role and zone
 
 # beta / prod setup
 example for beta
 ```
-kubectl -f 01-search-master-service.json -f 02-search-client.json -f 03-search-master.json -f 04-search-client.json
-../k8aws 05-search-db.json $(host kubemaster1-beta|awk '{print $4}'):8080 | kubectl -f -
+kubectl -f 01-search-master-service.json -f 02-search-client-service.json \
+-f 03-search-master-controller.json -f 04-search-client-controller.json
+
+k8aws 05-search-db.json $(host kubemaster1-beta|awk '{print $4}'):8080 | kubectl -f -
 ```
