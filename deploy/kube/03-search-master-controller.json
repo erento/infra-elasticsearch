@@ -91,6 +91,9 @@
             ]
           }
         ],
+        "nodeSelector": {
+          "tier": "mem"
+        },
         "imagePullSecrets": [
           {
             "name": "docker-registry-google"
