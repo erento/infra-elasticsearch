@@ -25,14 +25,14 @@
         "containers": [
           {
             "env": [
-                {
-                  "name": "KUBERNETES_DISABLE_HOSTNAME_CHECK",
-                  "value": "true"
-                },
-                {
-                  "name": "KUBERNETES_CA_CERTIFICATE_FILE",
-                  "value": "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
-                },
+              {
+                "name": "KUBERNETES_DISABLE_HOSTNAME_CHECK",
+                "value": "true"
+              },
+              {
+                "name": "KUBERNETES_CA_CERTIFICATE_FILE",
+                "value": "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
+              },
               {
                 "name": "NAMESPACE",
                 "valueFrom": {
