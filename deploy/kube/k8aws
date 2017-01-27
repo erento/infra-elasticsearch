@@ -1,14 +1,14 @@
 #!/usr/local/bin/node
 'use strict';
 /*
- please keep 3th party libs away
+ please keep 3rd party libs away
  */
 var fs = require("fs"),
     util = require("util"),
     exec = require('child_process').exec;
 
 /**
- * w/o 3th party this is the easiest possible method to clone object
+ * w/o 3rd party this is the easiest possible method to clone object
  * @param object to be deep cloned
  */
 function clone(object) {
@@ -99,9 +99,7 @@ function createLayout(definition, layout) {
         result.metadata.labels.zone = itemZone;
         result.spec.template.metadata.labels.zone = itemZone;
         // define node selector
-        result.spec.template.spec.nodeSelector = {
-            zone: itemZone
-        };
+        result.spec.template.spec.nodeSelector.zone = itemZone;
         // replace volume
         result.spec.template.spec.volumes[0] = {
             name: result.spec.template.spec.volumes[0].name,
