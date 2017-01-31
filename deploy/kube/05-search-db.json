@@ -1,0 +1,99 @@
+{
+  "kind": "ReplicationController",
+  "apiVersion": "v1",
+  "metadata": {
+    "labels": {
+      "app": "search",
+      "role": "db"
+    },
+    "name": "search-db"
+  },
+  "spec": {
+    "replicas": 1,
+    "selector": {
+      "app": "search",
+      "role": "db"
+    },
+    "template": {
+      "metadata": {
+        "labels": {
+          "app": "search",
+          "role": "db"
+        }
+      },
+      "spec": {
+        "containers": [
+          {
+            "env": [
+              {
+                "name": "KUBERNETES_DISABLE_HOSTNAME_CHECK",
+                "value": "true"
+              },
+              {
+                "name": "KUBERNETES_CA_CERTIFICATE_FILE",
+                "value": "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
+              },
+              {
+                "name": "NAMESPACE",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "metadata.namespace"
+                  }
+                }
+              },
+              {
+                "name": "CLUSTER_NAME",
+                "value": "search"
+              },
+              {
+                "name": "NODE_MASTER",
+                "value": "false"
+              },
+              {
+                "name": "NODE_DATA",
+                "value": "true"
+              },
+              {
+                "name": "HTTP_ENABLE",
+                "value": "false"
+              },
+              {
+                "name": "KUBERNETES_TRUST_CERTIFICATES",
+                "value": "true"
+              }
+            ],
+            "image": "gcr.io/erento-docker/search-els:2.3.3-1",
+            "name": "search-db",
+            "ports": [
+              {
+                "containerPort": 9300,
+                "name": "transport",
+                "protocol": "TCP"
+              }
+            ],
+            "volumeMounts": [
+              {
+                "mountPath": "/data",
+                "name": "storage"
+              }
+            ]
+          }
+        ],
+        "imagePullSecrets": [
+          {
+            "name": "docker-registry-google"
+          }
+        ],
+        "nodeSelector": {
+          "tier": "mem"
+        },
+        "volumes": [
+          {
+            "emptyDir": {},
+            "name": "storage"
+          }
+        ]
+      }
+    }
+  }
+}
