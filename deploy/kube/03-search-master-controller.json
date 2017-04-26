@@ -68,6 +68,10 @@
               {
                 "name": "KUBERNETES_TRUST_CERTIFICATES",
                 "value": "true"
+              },
+              {
+                "name": "ES_JAVA_OPTS",
+                "value": "-Xms3g -Xmx3g"
               }
             ],
             "image": "gcr.io/erento-docker/search-els:2.3.3-1",
