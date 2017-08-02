@@ -75,6 +75,13 @@
                 "protocol": "TCP"
               }
             ],
+            "resources": {
+              "requests": {
+                "memory": "3686Mi"
+              },
+              "limits": {
+                "memory": "4096Mi"
+            },
             "volumeMounts": [
               {
                 "mountPath": "/data",
