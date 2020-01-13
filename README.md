@@ -75,5 +75,7 @@ Do not forget to clean up after testing by running:
 gcloud container clusters delete "$CLUSTER" --zone "$ZONE"
 ```
 
+For testing, it is better to uncomment a `LoadBalancer` in the `./deploy/client.yml` to get a public IP address for communication with elasticsearch.
+
 ## Known issues:
 - While using synonyms we cannot use `german_stop` filter due to [issue in Lucene](https://issues.apache.org/jira/browse/LUCENE-8137) & [closed ticket on elasticsearch](https://github.com/elastic/elasticsearch/issues/28838)
