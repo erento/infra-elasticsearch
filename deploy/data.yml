@@ -10,8 +10,8 @@ nodeGroup: "data"
 
 roles:
   master: "false"
-  ingest: "false"
   data: "true"
+  ingest: "false"
 
 resources:
   requests:
