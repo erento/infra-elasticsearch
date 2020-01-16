@@ -30,7 +30,7 @@ helm install --name elasticsearch-client --values deploy/client.yml elastic/elas
 
 ## Create new docker image with elasticsearch
 
-The docker image is built in the CI and pushed to `erento-docker` container registry. The docker image version is specified in the Dockerfile & Jenkinsfile (both have to be update after upgrade).
+The docker image is built in the CI and pushed to `erento-docker` container registry. The docker image version is specified in the Dockerfile & Jenkinsfile (both have to be updated after upgrade).
 _Please remember that creating the docker image with the same image name and tag will most likely not install correct image because the downloaded images are cached and therefore the old image will be used._
 
 If you create a new docker image you have to modify the image tag in `/deploy/*.yml` files.
