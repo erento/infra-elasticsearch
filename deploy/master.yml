@@ -1,7 +1,7 @@
 ---
 image: "eu.gcr.io/erento-docker/infra-elasticsearch"
 imageTag: "7.5.1-erento-002"
-replicas: 3 # minimal recommended value
+replicas: 5 # minimal recommended value is 3, but with preemptible instances we recommend 5
 esMajorVersion: 7
 updateStrategy: OnDelete
 
@@ -92,6 +92,8 @@ esConfig:
       - elasticsearch-master-0
       - elasticsearch-master-1
       - elasticsearch-master-2
+      - elasticsearch-master-3
+      - elasticsearch-master-4
   log4j2.properties: |
     status: error
     logger:
