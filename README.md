@@ -85,3 +85,7 @@ Afterwards replace or add `xx_XX.dic` and `xx_XX.aff` in `/hunspell/xx_XX/` and 
 ## Known issues:
 - While using synonyms we cannot use `german_stop` filter due to [issue in Lucene](https://issues.apache.org/jira/browse/LUCENE-8137) & [closed ticket on elasticsearch](https://github.com/elastic/elasticsearch/issues/28838).
 - Every pod emits a message: `OpenJDK 64-Bit Server VM warning: Option UseConcMarkSweepGC was deprecated in version 9.0 and will likely be removed in a future release.` this is due to GC in Java 9. After elastic upgrades their default image to Java 10 we can use a new GC which is not based on this deprecated option, [see more](https://github.com/elastic/elasticsearch/issues/36828#issuecomment-448564460).
+
+## Troubleshooting
+
+- When the elasticsearch pods are down, look at the following [post mortem report](https://erento.atlassian.net/wiki/spaces/dev/pages/963674119/2020-03-03+-+frontend+not+serving+any+content+due+to+elasticsearch+issue).
