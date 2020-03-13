@@ -65,11 +65,6 @@ kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admi
 kubectl patch deploy --namespace kube-system tiller-deploy -p '{"spec":{"template":{"spec":{"serviceAccount":"tiller"}}}}'
 ```
 
-Add your new cluster permissions to read docker files from our `erento-docker` project:
-- Go to your project's service accounts and copy name of your compute user e.g.: `<xxxxxxxx>-compute@developer.gserviceaccount.com` where `xxxxxxxx` is ID of your project.
-- Go to [storage](https://console.cloud.google.com/storage/browser/eu.artifacts.erento-docker.appspot.com?project=erento-docker) in the `erento-docker` project
-- Go to permissions tab and add a new member as your compute user with Storage Object Viewer role.
-
 Do not forget to clean up after testing by running:
 ```bash
 gcloud container clusters delete "$CLUSTER" --zone "$ZONE"
