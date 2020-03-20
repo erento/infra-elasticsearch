@@ -84,3 +84,11 @@ Afterwards replace or add `xx_XX.dic` and `xx_XX.aff` in `/hunspell/xx_XX/` and 
 ## Troubleshooting
 
 - When the elasticsearch pods are down, look at the following [post mortem report](https://erento.atlassian.net/wiki/spaces/dev/pages/963674119/2020-03-03+-+frontend+not+serving+any+content+due+to+elasticsearch+issue).
+
+## How to use our elastic outside of erento
+
+- Please, fork our repository. It will help us to follow your changes and give you a possibility to pull any future upgrades we will provide over time.
+- Change `dictionaries/synonyms.txt` to be aligned with your business.
+- Create your own docker image based on `Dockerfile` or use the default one if you don't need any plugins, synonyms or hunspell. _(You cannot use our docker image because it is published to the private container registry.)_
+- Change `image` & `imageTag` in the `deploy/*.yml` files to your docker image.
+- You will have to remove or change `imagePullSecrets` in `deploy/*.yml`. It is used to be authorized to pull the docker image from the private registry.
