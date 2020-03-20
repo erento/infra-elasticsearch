@@ -1,7 +1,7 @@
 projectBaseName = "infra-elasticsearch"
-erento_elasticsearch_version = "7.5.1-erento-002"
+elasticsearch_version = "7.5.1-erento-002"
 
-imageName = "${projectBaseName}:${erento_elasticsearch_version}"
+imageName = "${projectBaseName}:${elasticsearch_version}"
 
 node {
     stage("checkout") {
