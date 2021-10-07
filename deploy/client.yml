@@ -1,6 +1,6 @@
 ---
-image: "eu.gcr.io/erento-docker/infra-elasticsearch"
-imageTag: "7.5.1-erento-002"
+image: "eu.gcr.io/campanda-docker/infra-elasticsearch"
+imageTag: "7.5.1-001"
 replicas: 2
 esMajorVersion: 7
 updateStrategy: OnDelete
@@ -61,7 +61,7 @@ esConfig:
     # JDK 9+ GC logging
     9-:-Xlog:gc*,gc+age=trace,safepoint:file=logs/gc.log:utctime,pid,tags:filecount=32,filesize=64m
 
-    ## Erento specific
+    ## Company specific
 
     -XX:+AlwaysPreTouch
 

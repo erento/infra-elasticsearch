@@ -2,7 +2,7 @@
 
 The elasticsearch infrastructure is based on the official [HELM chart](https://github.com/elastic/helm-charts) from 3. January 2020 and elasticsearch version `7.5.1`.
 
-HELM is required in the version 2.
+HELM is required in the version > 2.
 
 ## How to proceed to install elastic from scratch
 
@@ -30,15 +30,21 @@ helm install --name elasticsearch-client --values deploy/client.yml elastic/elas
 
 ## Create new docker image with elasticsearch
 
-The docker image is built in the CI and pushed to `erento-docker` container registry. The docker image version is specified in the Dockerfile & Jenkinsfile (both have to be updated after upgrade).
+The docker image is built in the CI and pushed to `campanda-docker` container registry. The docker image version is specified in the Dockerfile & Jenkinsfile (both have to be updated after upgrade).
 _Please remember that creating the docker image with the same image name and tag will most likely not install correct image because the downloaded images are cached and therefore the old image will be used._
 
 If you create a new docker image you have to modify the image tag in `/deploy/*.yml` files.
 
 To build the image manually (e.g.: for testing locally) run:
 ```bash
-docker build -t erento_elastic_search .
+docker build -t campanda_elastic_search .
 ```
+To push to the registry manually run:
+```bash
+docker build . -t eu.gcr.io/campanda-docker/infra-elasticsearch:7.5.1-campanda-XXX
+docker push eu.gcr.io/campanda-docker/infra-elasticsearch:7.5.1-campanda-XXX
+```
+**Note:** replace `XXX` with a sequential number (first tag is `7.5.1-001`).
 
 ## Test
 Create a new cluster:
@@ -85,7 +91,7 @@ Afterwards replace or add `xx_XX.dic` and `xx_XX.aff` in `/hunspell/xx_XX/` and 
 
 - When the elasticsearch pods are down, look at the following [post mortem report](https://erento.atlassian.net/wiki/spaces/dev/pages/963674119/2020-03-03+-+frontend+not+serving+any+content+due+to+elasticsearch+issue).
 
-## How to use our elastic outside of erento
+## How to use our elastic outside campanda
 
 - Please, fork our repository. It will help us to follow your changes and give you a possibility to pull any future upgrades we will provide over time.
 - Change `dictionaries/synonyms.txt` to be aligned with your business.
