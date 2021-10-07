@@ -1,6 +1,6 @@
 ---
 image: "eu.gcr.io/campanda-docker/infra-elasticsearch"
-imageTag: "7.15.0-001"
+imageTag: "7.15.0-002"
 replicas: 2
 esMajorVersion: 7
 updateStrategy: OnDelete
@@ -25,89 +25,6 @@ resources:
 
 podAnnotations:
   app.kubernetes.io/name: es-cluster
-
-esConfig:
-  jvm.options: |
-    ## JVM configuration
-
-    ## You should always set the min and max JVM heap size to the same value. For example, to set the heap to 4 GB, set:
-    ## -Xms4g
-    ## -Xmx4g
-    ## See https://www.elastic.co/guide/en/elasticsearch/reference/current/heap-size.html for more information
-    # Xms represents the initial size of total heap space
-    # Xmx represents the maximum size of total heap space
-
-    -Xms1024m
-    -Xmx1024m
-
-    ## Expert settings
-
-    ## GC configuration
-    -XX:CMSInitiatingOccupancyFraction=75
-    -XX:+UseCMSInitiatingOccupancyOnly
-
-    ## heap dumps
-
-    # generate a heap dump when an allocation from the Java heap fails heap dumps are created in the working directory of the JVM
-    -XX:+HeapDumpOnOutOfMemoryError
-
-    # specify an alternative path for heap dumps; ensure the directory exists and has sufficient space
-    -XX:HeapDumpPath=data
-
-    # specify an alternative path for JVM fatal error logs
-    -XX:ErrorFile=logs/hs_err_pid%p.log
-
-    # JDK 9+ GC logging
-    9-:-Xlog:gc*,gc+age=trace,safepoint:file=logs/gc.log:utctime,pid,tags:filecount=32,filesize=64m
-
-    ## Company specific
-
-    -XX:+AlwaysPreTouch
-
-    -Xss1m
-
-    -Djava.awt.headless=true
-
-    -Dfile.encoding=UTF-8
-
-    -Djna.nosys=true
-
-    -Djdk.io.permissionsUseCanonicalPath=true
-
-    -Dio.netty.noUnsafe=true
-    -Dio.netty.noKeySetOptimization=true
-    -Dio.netty.recycler.maxCapacityPerThread=0
-
-    -Dlog4j.shutdownHookEnabled=false
-    -Dlog4j2.disable.jmx=true
-    -Dlog4j.skipJansi=true
-  elasticsearch.yml: |
-    path.logs: /usr/share/elasticsearch/logs
-    network.host: 0.0.0.0
-    node:
-      master: false
-      data: false
-      ingest: true
-  log4j2.properties: |
-    status: error
-    logger:
-      action:
-        level: info
-        name: org.elasticsearch.action
-      deprecation:
-        level: warn
-    appender:
-      console:
-        type = Console
-        name = console
-        layout:
-          type = PatternLayout
-          pattern = [%d{ISO8601}][%-5p][%-25c{1.}] [%node_name]%marker %m%n
-    rootLogger:
-      level = info,console
-      appenderRef:
-        console:
-          ref: console
 
 # Enable this option when it is not part of your environment (e.g. different namespace or cluster)
 #service:
