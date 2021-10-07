@@ -3,7 +3,7 @@ projectBaseName = "infra-elasticsearch"
 shortLabel = projectBaseName.size() >= 10 ? projectBaseName.substring(0, 10) : projectBaseName
 buildLabel = "${shortLabel}-${UUID.randomUUID().toString()}"
 
-imageVersion = "001"
+imageVersion = "002"
 elasticsearchVersion = "7.15.0"
 imageName = "${projectBaseName}:${elasticsearchVersion}-${imageVersion}"
 imageNameWithPath = "eu.gcr.io/campanda-docker/${imageName}"
