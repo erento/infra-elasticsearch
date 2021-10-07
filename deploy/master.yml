@@ -43,7 +43,6 @@ esConfig:
     ## Expert settings
 
     ## GC configuration
-    -XX:+UseConcMarkSweepGC
     -XX:CMSInitiatingOccupancyFraction=75
     -XX:+UseCMSInitiatingOccupancyOnly
 
