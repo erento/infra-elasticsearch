@@ -1,17 +1,46 @@
 projectBaseName = "infra-elasticsearch"
-elasticsearch_version = "7.5.1-001"
 
-imageName = "${projectBaseName}:${elasticsearch_version}"
+shortLabel = projectBaseName.size() >= 10 ? projectBaseName.substring(0, 10) : projectBaseName
+buildLabel = "${shortLabel}-${UUID.randomUUID().toString()}"
 
-node {
-    stage("checkout") {
-        checkout scm
-    }
+imageVersion = "001"
+elasticsearchVersion = "7.5.1"
+imageName = "${projectBaseName}:${elasticsearchVersion}-${imageVersion}"
+imageNameWithPath = "eu.gcr.io/campanda-docker/${imageName}"
+maxCommits = 10
 
-    stage("bake and push service image") {
-        def myImage = docker.build("eu.gcr.io/campanda-docker/${imageName}", ".")
-        myImage.push()
-        myImage.push('latest')
-        milestone(label: "image baked and pushed")
+defaultEnvList = [
+    envVar(key: "IMAGE", value: imageNameWithPath),
+]
+
+podTemplate(label: "global") {
+    podTemplate(
+        label: buildLabel,
+        containers: [
+                containerTemplate(name: "kaniko", image: "gcr.io/kaniko-project/executor:debug-v1.3.0", ttyEnabled: true, command: "/busybox/cat",
+                        envVars: [
+                                containerEnvVar(key: "GOOGLE_APPLICATION_CREDENTIALS", value: "/secret/campanda-docker-account.json")
+                        ]
+                ),
+        ],
+        envVars: defaultEnvList,
+        nodeSelector: "type=worker",
+        volumes: [
+                secretVolume(secretName: "campanda-docker-account", mountPath: "/secret"),
+        ]
+    ) {
+        node(buildLabel) {
+            stage("checkout") {
+                gitCheckout(maxCommits)
+            }
+
+            stage("build image & push") {
+                container(name: "kaniko", shell: "/busybox/sh") {
+                    sh """#!/busybox/sh
+                        /kaniko/executor --dockerfile `pwd`/Dockerfile --cache=true --context `pwd` --destination=$IMAGE
+                    """
+                }
+            }
+        }
     }
 }
