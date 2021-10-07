@@ -1,6 +1,6 @@
 # Elasticsearch infrastructure
 
-The elasticsearch infrastructure is based on the official [HELM chart](https://github.com/elastic/helm-charts) from 3. January 2020 and elasticsearch version `7.5.1`.
+The elasticsearch infrastructure is based on the official [HELM chart](https://github.com/elastic/helm-charts) from 7. October 2021 and elasticsearch version `7.15.0`.
 
 HELM is required in the version 3.
 
@@ -23,9 +23,9 @@ helm repo add elastic https://helm.elastic.co
 
 To install elasticsearch using helm follow these steps (can be applied at the same time, the order is not important):
 ```bash
-helm install elasticsearch-master -f deploy/master.yml elastic/elasticsearch
-helm install elasticsearch-data -f deploy/data.yml elastic/elasticsearch
-helm install elasticsearch-client -f deploy/client.yml elastic/elasticsearch
+helm install elasticsearch-master -f deploy/master.yml elastic/elasticsearch --version 7.15.0
+helm install elasticsearch-data -f deploy/data.yml elastic/elasticsearch --version 7.15.0
+helm install elasticsearch-client -f deploy/client.yml elastic/elasticsearch --version 7.15.0
 ```
 
 ## Create new docker image with elasticsearch
@@ -41,10 +41,10 @@ docker build -t campanda_elastic_search .
 ```
 To push to the registry manually run:
 ```bash
-docker build . -t eu.gcr.io/campanda-docker/infra-elasticsearch:7.5.1-campanda-XXX
-docker push eu.gcr.io/campanda-docker/infra-elasticsearch:7.5.1-campanda-XXX
+docker build . -t eu.gcr.io/campanda-docker/infra-elasticsearch:7.15.0-campanda-XXX
+docker push eu.gcr.io/campanda-docker/infra-elasticsearch:7.15.0-campanda-XXX
 ```
-**Note:** replace `XXX` with a sequential number (first tag is `7.5.1-001`). 
+**Note:** replace `XXX` with a sequential number (first tag is `7.15.0-001`). 
 Check the [container registry](https://console.cloud.google.com/gcr/images/campanda-docker/eu/infra-elasticsearch?project=campanda-docker) for latest number.
 
 ## Test
