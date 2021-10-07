@@ -5,7 +5,7 @@ replicas: 5 # minimal recommended value is 3, but with preemptible instances we 
 esMajorVersion: 7
 updateStrategy: OnDelete
 imagePullSecrets:
-  - name: docker-registry-google
+  - name: docker-registry-google-eu
 
 clusterName: "elasticsearch"
 nodeGroup: "master"
