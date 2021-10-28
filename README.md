@@ -27,6 +27,8 @@ helm install elasticsearch-master -f deploy/master.yml elastic/elasticsearch --v
 helm install elasticsearch-data -f deploy/data.yml elastic/elasticsearch --version 7.15.0
 helm install elasticsearch-client -f deploy/client.yml elastic/elasticsearch --version 7.15.0
 ```
+**Note:** When changing `master.yml`, `data.yml`, `client.yml` the easiest way to update is to use `helm upgrade` instead with the same parameters
+as above. To finally apply the changes the respective running pods have to be restarted one after another.
 
 ## Create new docker image with elasticsearch
 

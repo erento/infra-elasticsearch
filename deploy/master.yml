@@ -25,6 +25,8 @@ resources:
 
 podAnnotations:
   app.kubernetes.io/name: es-cluster
+  config.linkerd.io/skip-outbound-ports: "3306"
+  linkerd.io/inject: enabled
 
 volumeClaimTemplate:
   accessModes: ["ReadWriteOnce"]
